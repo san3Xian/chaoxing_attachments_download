@@ -7,3 +7,6 @@ python3 main.py "课程页面网址"
 ```
 - 随手写的
 - 所以如果坏了有可能不提供维护
+### demo
+![demo.png](./img/demo.png "效果参考")
+

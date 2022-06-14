@@ -87,7 +87,7 @@ if __name__ == '__main__':
         knowledge_id = url_params["chapterId"][0]
 
     # 将上述解析到course_id 和 knowledge_id 拼接到新的网址中形成新的字符串
-    # 请求超星的接口获取课程附件信息
+    # 请求chaoxing的接口获取课程附件信息
     # 拼接后效果如: https://mooc1.chaoxing.com/knowledge/cards?courseid=200351800&knowledgeid=130793594
     cards_url = "https://mooc1.chaoxing.com/knowledge/cards?" + "courseid=" + course_id + "&knowledgeid=" + knowledge_id
     cards_result = requests.get(cards_url, headers=req_headers, cookies=cookie, allow_redirects=False)

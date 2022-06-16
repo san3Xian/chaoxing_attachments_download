@@ -80,18 +80,22 @@ if __name__ == '__main__':
     # 利用urllib模块解析出网址中的courseId参数和knowledgeId / chapterId参数
     # 并且将参数值赋予给名为course_id 和 knowledge_id 的变量
     # 因为在url地址中，同一个参数可以有多个值，所以这里我们通过指定下标只取第一个值
+    clazz_id = ""
     course_id = url_params["courseId"][0]
     if "knowledgeId" in url_params.keys():
         knowledge_id = url_params["knowledgeId"][0]
     else:
         knowledge_id = url_params["chapterId"][0]
+    if "clazzid" in url_params.keys():
+      clazz_id = url_params["clazzid"][0]
+      
 
     # 将上述解析到course_id 和 knowledge_id 拼接到新的网址中形成新的字符串
     # 请求chaoxing的接口获取课程附件信息
     # 拼接后效果如: https://mooc1.chaoxing.com/knowledge/cards?courseid=200351800&knowledgeid=130793594
-    cards_url = "https://mooc1.chaoxing.com/knowledge/cards?" + "courseid=" + course_id + "&knowledgeid=" + knowledge_id
+    cards_url = "https://mooc1.chaoxing.com/knowledge/cards?" + "courseid=" + course_id + "&knowledgeid=" + knowledge_id + "&clazzid=" + clazz_id
     cards_result = requests.get(cards_url, headers=req_headers, cookies=cookie, allow_redirects=False)
-
+    print("cards_url",cards_url)
     if cards_result.status_code != 200:
         print(cards_result.status_code, "Cookie(即传入脚本的第二个参数)有误，请重新执行")
 
@@ -99,7 +103,7 @@ if __name__ == '__main__':
     attachment_json = json.loads(attachment_str.replace("mArg = ", "", 1).replace("};", "}", 1))
 
     # 定义需要下载的附件类型
-    download_type = [".ppt", ".pptx"]
+    download_type = [".ppt", ".pptx", ".pdf"]
 
     req_headers["Referer"] = "https://mooc1.chaoxing.com/ananas/modules/pdf/index.html"
     #print("===", json.dumps(attachment_json)) # Debug messages
